@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include(('app.urls'))),
 
-    path('', TemplateView.as_view(template_name="index.html"), name='home'),
+    path('', TemplateView.as_view(template_name="app/index.html"), name='home'),
 ]
 
 if settings.DEBUG:
