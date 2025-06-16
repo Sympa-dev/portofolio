@@ -1,14 +1,14 @@
 services:
   - type: web
-    name: portofolio
+    name: portfolio  # ← tu peux corriger aussi le nom ici
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn portofolio.wsgi:application"
+    startCommand: "gunicorn portfolio.wsgi:application"
     staticPublishPath: staticfiles
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: portofolio.settings
+        value: portfolio.settings
       - key: SECRET_KEY
-        value: your-secret-key
+        value: 3#$vu-xtueiep+7+wh(ex6ass5ea*0ly%0*h@wy+rr7jk@cyni
       - key: DEBUG
-        value: False
+        value: false
