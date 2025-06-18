@@ -19,10 +19,17 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from portofolio import settings
 from django.views.generic import TemplateView
+from app.sitemaps import SinglePageSitemap
+from django.contrib.sitemaps.views import sitemap
+
+sitemaps = {
+    'site': SinglePageSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include(('app.urls'))),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 
     path('', TemplateView.as_view(template_name="app/index.html"), name='home'),
 ]
