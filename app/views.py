@@ -36,17 +36,17 @@ def index(request, *args, **kwargs):
 
     return render(request, "app/index.html")
 
-@require_POST
-@csrf_protect
+
 def download_cv(request):
-    try:
-        cv = CV.objects.latest('date_ajout')  # récupère le plus récent
-        file_path = cv.fichier.path
-        return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=os.path.basename(file_path))
-    except CV.DoesNotExist:
-        raise Http404("Aucun CV disponible.")
-    except FileNotFoundError:
-        raise Http404("Fichier introuvable.")
+    if request.method == 'POST':
+        try:
+            cv = CV.objects.latest('date_ajout')  # récupère le plus récent
+            file_path = cv.fichier.path
+            return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=os.path.basename(file_path))
+        except CV.DoesNotExist:
+            raise Http404("Aucun CV disponible.")
+        except FileNotFoundError:
+            raise Http404("Fichier introuvable.")
     
 
 def robots_txt(request):
