@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hl&nkq+&w*)fwn^lonu)ip17wff5+3l%jphk1veb#1b^2sn#a-'
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['sympa-kalambay.onrender.com']
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
@@ -63,6 +63,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+# Configuration CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://sympa-kalambay.onrender.com',
+    'http://localhost:8000',
+]
+
+# Configuration des cookies pour HTTPS
+CSRF_COOKIE_SECURE = True  # Pour HTTPS
+SESSION_COOKIE_SECURE = True  # Pour HTTPS
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 ROOT_URLCONF = 'portofolio.urls'
 WSGI_APPLICATION = 'portofolio.wsgi.application'

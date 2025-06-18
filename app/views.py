@@ -3,6 +3,8 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import FileResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 import os
 
@@ -34,6 +36,8 @@ def index(request, *args, **kwargs):
 
     return render(request, "app/index.html")
 
+@require_POST
+@csrf_protect
 def download_cv(request):
     try:
         cv = CV.objects.latest('date_ajout')  # récupère le plus récent
