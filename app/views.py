@@ -14,8 +14,26 @@ from portofolio.settings import EMAIL_HOST_USER
 # Create your views here.
 
 def index(request, *args, **kwargs):
+    return render(request, "app/index.html")
 
+
+def download_cv(request):
     if request.method == 'POST':
+        try:
+            cv = CV.objects.latest('date_ajout')  # récupère le plus récent
+            file_path = cv.fichier.path
+            return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=os.path.basename(file_path))
+        except CV.DoesNotExist:
+            raise Http404("Aucun CV disponible.")
+        except FileNotFoundError:
+            raise Http404("Fichier introuvable.")
+
+@require_POST
+@csrf_protect    
+def SendMail(request, *args, **kwargs):
+    
+     if request.method == 'POST':
+        
         name = request.POST.get('name', '').strip()
         email = request.POST.get('email', '').strip()
         subject = request.POST.get('subject', '').strip()
@@ -33,20 +51,6 @@ def index(request, *args, **kwargs):
 
         messages.success(request, "Votre mail a été envoyé avec succès !")
         return redirect('index')
-
-    return render(request, "app/index.html")
-
-
-def download_cv(request):
-    if request.method == 'POST':
-        try:
-            cv = CV.objects.latest('date_ajout')  # récupère le plus récent
-            file_path = cv.fichier.path
-            return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=os.path.basename(file_path))
-        except CV.DoesNotExist:
-            raise Http404("Aucun CV disponible.")
-        except FileNotFoundError:
-            raise Http404("Fichier introuvable.")
     
 
 def robots_txt(request):

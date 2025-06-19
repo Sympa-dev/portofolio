@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hl&nkq+&w*)fwn^lonu)ip17wff5+3l%jphk1veb#1b^2sn#a-'
 DEBUG = False
 
-ALLOWED_HOSTS = ['sympa-kalambay.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
