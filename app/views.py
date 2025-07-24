@@ -51,7 +51,6 @@ def SendMail(request, *args, **kwargs):
 
         messages.success(request, "Votre mail a été envoyé avec succès !")
         return redirect('index')
-    
 
 def robots_txt(request):
     content = "User-agent: *\nDisallow:\nSitemap: https://sympa-kalambay.onrender.com/sitemap.xml"
